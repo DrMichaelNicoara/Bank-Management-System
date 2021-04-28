@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cctype>
 #include <iomanip>
+#include <vector>
+std::vector<int> acnos; // A vector that will save all account's number so there can't be 2 accounts with the same acno
 
 class Account
 {
@@ -27,11 +29,22 @@ public:
 
 void Account::new_acc()
 {
+	bool valid;
 	do
 	{
 		std::cout << "\nEnter the account No. : ";
 		std::cin >> acno;
-	} while (acno <= 0);
+
+		// Checking if acno hasn't been entered before
+		valid = true;
+		for(auto it = acnos.begin(); it != acnos.end(); it++)
+			if (acno == *it)
+			{
+				valid = false;
+				break;
+			}
+	} while (acno <= 0 || !valid);
+	acnos.push_back(acno);
 
 	std::cout << "Enter the name of the account holder : ";
 	std::cin.ignore();

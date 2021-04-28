@@ -125,7 +125,19 @@ void delete_account(int acno)
 		{
 			outFile.write(reinterpret_cast<char*> (&ac), sizeof(Account));
 		}
-		else found = true;
+		else
+		{
+			found = true;
+			
+			// Deleting the account number record
+			extern std::vector<int> acnos;
+			for(auto it = acnos.begin(); it != acnos.end(); it++)
+				if (acno == *it)
+				{
+					acnos.erase(it);
+					break;
+				}
+		}
 	}
 
 	inFile.close();
